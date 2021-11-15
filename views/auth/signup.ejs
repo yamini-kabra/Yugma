@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/auth.css">
+  </head>
+
+  <body>
+    <div class="box container">
+      <form action="/signup" method="POST">
+        <br /><br /><br />
+        <h2>Create your account</h2>
+        <br />
+        <div class="login" style="margin-top: 5px">
+          <label id="username">Username</label>
+          <input name="username" type="text" placeholder="Enter Username" class="input" required />
+          <label id="eemail">Email</label>
+          <input name="email" type="text" placeholder="Enter email" class="input" required />
+          <label id="npass">Password</label>
+          <input name="password" type="password" placeholder="Enter password (min 5 characters)" class="input" required />
+          <label id="cnfpas">Confirm password</label>
+          <input name="cpassword" type="password" placeholder="Retype new password" class="input" required />
+        </div>
+        <div class="signin">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button style="margin-left: 12px" type="submit" class="btn">
+            Create Account
+          </button>
+        </div>
+        <% if (errorMessage) { %>
+        <center>
+          <div style="height: 30px; color: red"><%= errorMessage %></div>
+        </center>
+        <% } %>
+        <br />
+        <div><br>
+          <a style="margin-left: 5px" href="/login">Back to login page!</a>
+        </div>
+      </form>
+      <br /><br /><br />
+    </div>
+  </body>
+</html>

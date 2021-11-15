@@ -1,0 +1,123 @@
+
+      body {
+        margin: 0;
+        padding: 0;
+        /* background-color: white; */
+        text-align: center;
+        background-image: url(assets/img/svg/separators/curve.svg);
+      }
+      .box {
+        background-color: white;
+        border-radius: 10px;
+        border: 1.5px solid #ccc;
+        width: 400px;
+        padding: 40px;
+        top: 50%;
+        height: 527px;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+        transition: box-shadow 0.3s;
+      }
+
+      .box:hover {
+        box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+      }
+
+      .input {
+        background: none;
+        margin: 1px 0px 19px;
+        padding: 17px;
+        width: 85%;
+        height: 37px;
+        border: 1px solid #37353563;
+        border-radius: 5px;
+        color: black;
+        text-align: left;
+        transition: 0.3s;
+      }
+
+      .btn {
+        background-color: #1a73e8;
+        padding: 5px;
+        border-radius: 7px;
+        width: 40%;
+        margin: 20px;
+        color: white;
+      }
+
+      .btn:hover {
+        background-color: lightgreen;
+        color: black;
+      }
+
+      h2 {
+        color: black;
+        font: 18px;
+      }
+
+      .h1,
+      .h2,
+      .h3,
+      h1,
+      h2,
+      h3 {
+        margin-top: -74px;
+        margin-bottom: 10px;
+        color: black;
+      }
+
+      img {
+        width: 38%;
+        position: absolute;
+        top: -140px;
+        right: 134px;
+      }
+
+      #email,
+      #password {
+        position: absolute;
+        color: grey;
+        font-size: 12px;
+        background-color: white;
+      }
+
+      #email {
+        left: 80px;
+        top: 202px;
+      }
+
+      #password {
+        top: 271px;
+        left: 80px;
+      }
+
+      #npass {
+        margin-right: 193px;
+        color: black;
+      }
+
+      #cnfpas {
+        margin-right: 138px;
+        color: black;
+      }
+
+      #username {
+        margin-right: 195px;
+        color: black;
+      }
+
+      #eemail {
+        margin-right: 222px;
+        color: black;
+      }
+
+      .signin {
+        /* display: flex; */
+        margin-left: "30px";
+        /* justify-content: flex-; */
+        margin-bottom: 4px;
+      }
+    

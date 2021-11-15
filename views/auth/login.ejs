@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/auth.css">
+  </head>
+  <body>
+    <div class="box container">
+      <!-- <img src="applogo.png" /> -->
+      <form action="/login" method="POST">
+        <br /><br /><br />
+        <h2>Log In Yourself</h2>
+        <div class="login" style="margin-top: 44px">
+          <!-- <label id="email">Email</label> -->
+          <input name="email" type="email" placeholder="Email" class="input" required />
+          <!-- <label id="password">Password</label> -->
+          <input name="password" type="password" placeholder="Password" class="input" required />
+          <br>
+        </div>
+        <div class="signin">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button style="align-self: center;" type="submit" class="btn"> Login </button>
+          
+        </div>
+        <br><br>
+          <a style="margin-left: 0px" href="/signup">Create account</a>
+        <% if (errorMessage) { %>
+        <center>
+          <div style="height: 30px; color: red"><%= errorMessage %></div>
+        </center>
+        <% } %>
+      </form>
+      <br /><br /><br />
+      <div>
+        <a style="margin-left: 6px" href="/reset">Forgot Password?</a>
+      </div>
+    </div>
+  </body>
+</html>
