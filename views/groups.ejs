@@ -1,37 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/navigation.css">
+<link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
-    <h1> welcome to your own space</h1>
-    <form action="/logout" method="GET">
-        <div class="signin">
-            <button style="align-self: center;" type="submit" class="btn"> Logout </button>
-          </div>
-    </form>
-    <form action="/delete" method="GET">
-      <div class="signin">
-          <button style="align-self: center;" type="submit" class="btn"> Delete Account </button>
-        </div>
-  </form>
-  <form action="/createGroup" method="POST">
-    <div class="signin">
-        <button style="align-self: center;" type="submit" class="btn"> Create Group </button>
-      </div>
-</form>
-<form action="/joinGroup" method="POST">
-  <div class="signin">
-      <button style="align-self: center;" type="submit" class="btn"> Join Group </button>
+
+<div class="topnav">
+  <a class="active" href="/groups">Home</a>
+  <a href="/createGroup">Create Group</a>
+  <a href="/joinGroup">Join Group</a>
+  <a href="/logout">Logout</a>
+  <a href="/delete">Delete Account</a>
+</div>
+
+<% if(clickOn === 'home'){ %>
+
+<h1> welcome !</h1>
+<h1> <% groups %></h1>
+<% if(groups.length > 0){ %>
+  
+  <h1> hey, there are groups</h1>
+  <% for(let group of groups){ %>
+
+    <div class="vertical-menu">
+      <a href="groups/group/?code=<%=group.code %>"><%=group.name %></a>
+
     </div>
-</form>
-    
+    <% console.log(group.code) %>
+    <% } %>
+  <% } %>
+   <% } %>
+
+<% if(clickOn === 'createGroup'){ %>
+  <div style="padding-left:16px">
+   
+      <div class="box container">
+      
+        <form action="/createGroup" method="POST">
+          <br /><br /><br />
+          <h2>Create your own group</h2>
+          <div class="login" style="margin-top: 44px">
+  
+            <input name="code" type="number" placeholder="Enter Group Code here" class="input" required />
+           <input name="name" type="text" placeholder="Enter name of new channel" class= "input" required />
+            <br>
+          </div>
+          <div class="signin">
+            
+            <button style="align-self: center;" type="submit" class="btn"> Create Group</button>
+
+            <% if (errorMessage) { %>
+              <center>
+                <div style="height: 30px; color: red"><%= errorMessage %></div>
+              </center>
+              <% } %>
+            
+          </div>
+          </form>
+          </div>
+    <% } %>
+  
+    <% if(clickOn === 'joinGroup'){ %>
+      <div style="padding-left:16px">
+       
+          <div class="box container">
+          
+            <form action="/joinGroup" method="POST">
+              <br /><br /><br /><br /><br /><br />
+              <h2>Join your group</h2>
+              <div class="login" style="margin-top: 44px">
+      
+                <input name="code" type="number" placeholder="Enter Group Code here" class="input" required />
+               
+                <br>
+              </div>
+              <div class="signin">
+                
+                <button style="align-self: center;" type="submit" class="btn"> Join Group</button>
+                <% if (errorMessage) { %>
+                  <center>
+                    <div style="height: 30px; color: red"><%= errorMessage %></div>
+                  </center>
+                  <% } %>
+              </div>
+              </form>
+              </div>
+        <% } %>
 </body>
 </html>
+

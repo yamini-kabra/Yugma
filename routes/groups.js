@@ -5,15 +5,39 @@ const forAuth = require('../middleware/for-auth');
 
 const router = express.Router();
 
+//to
 router.get('/groups', forAuth, groupController.groupsLandingPage);
 
-router.post("/createGroup", groupController.createGroup);
+router.get("/createGroup", groupController.getCreateGroup);
 
-router.post("/joinGroup", [body("code", "Please Enter a code").isLength({ min: 1 })], groupController.joinGroup );
+router.get("/joinGroup", [body("code", "Please Enter a code").isLength({ min: 1 })], groupController.getJoinGroup );
 
-router.get("/group", groupController.getGroup);
+router.post("/createGroup", groupController.postCreateGroup);
 
-router.get("/leaveGroup", groupController.leaveGroup);
+router.post("/joinGroup", groupController.postJoinGroup);
 
+
+router.get('/groups/group', forAuth, groupController.getGroup);
+
+router.get('/groups/group/leave', forAuth, groupController.leaveGroup);
 module.exports = router;
-
+// <% if(clickOn === 'home'){ %>
+//     <h2>welcome to your own space</h2>
+//     <div class="channel" id="blur">
+//           <ol class="rooms">
+//               <% if(groups.length > 0){ %>
+//                   <% for(let group of groups){ %>
+//                       <li data-channel= <%=group.code %>>
+//                                   <center>
+//                                   <h4>
+//                                       <%=group.name %>
+//                                   </h4>
+//                                   </center>
+//                               </div>
+//                           </div>
+//                       </li>
+//                   <% } %>
+//               <% } %>
+//           </ol>
+//       </div>
+//   </div>

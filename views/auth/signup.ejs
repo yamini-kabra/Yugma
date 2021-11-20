@@ -8,7 +8,7 @@
   <body>
     <div class="box container">
       <form action="/signup" method="POST">
-        <br /><br /><br />
+        
         <h2>Create your account</h2>
         <br />
         <div class="login" style="margin-top: 5px">
@@ -22,7 +22,7 @@
           <input name="cpassword" type="password" placeholder="Retype new password" class="input" required />
         </div>
         <div class="signin">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        
           <button style="margin-left: 12px" type="submit" class="btn">
             Create Account
           </button>
@@ -33,7 +33,7 @@
         </center>
         <% } %>
         <br />
-        <div><br>
+        <div>
           <a style="margin-left: 5px" href="/login">Back to login page!</a>
         </div>
       </form>

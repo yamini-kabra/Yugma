@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script> -->
+  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 
+  <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title><%= groupName %></title>
+    <style>
+      /* Style the "Add" button */
+      .addBtn {
+        padding-top: 2px;
+        width: 25%;
+        height: 31px;
+        color: rgb(236, 233, 233);
+        float: left;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 8px;
+        background: #1a73e8;
+        opacity: 0.9;
+        border: none
+      }
+
+      .addBtn:hover {
+        opacity: 10;
+      }
+
+      .chat{
+          border: 1px solid silver;
+          border-radius: 10px;
+          border-bottom: 2px solid gray;
+          margin-bottom: 2px;
+          background-color:rgba(255,255,255,0.5);
+      }
+      .user-name{
+          margin-left: 5%;
+          font-weight: bold;
+          color: black;
+      }
+      .chat-message{
+          margin-left: 5%;
+          font-size: 12px;
+          color: gray;
+      }
+    </style>
+</head>
+<body>
+    <h1> welcome to <%= groupName %></h1>
+    <form action="/groups/group/leave" method="get">
+    <button style="margin-left: 12px" type="submit" class="addBtn">
+        Leave this group
+      </button>
+    </form>
+    
+    <div style="background-color:whitesmoke; height: 77vh; border-radius: 12px;">
+      <form action="/groups/group/leave" method="get">
+        <button style="margin-left: 12px; float: right; width: 12%;" type="submit" class="addBtn">
+            Leave this group
+          </button>
+        </form> 
+        <div class="chatbox">
+          <div class="chatlogs" style="padding: 8px;overflow-y: scroll">
+            <div class="chat" id="messages" style="background-image: url(https://res.cloudinary.com/practicaldev/image/fetch/s--WAKqnINn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/tw0nawnvo0zpgm5nx4fp.png);background-color:green;;min-height:55vh ; max-height: 55vh;overflow-y: scroll; padding: 8px;border-radius: 14px;;">
+              
+            </div>
+          </div>
+          <div class="chat-form" style="display: flex; flex-direction: column;padding-left: 8px;padding-right: 8px; align-items: center; margin-top:none;">
+          <textarea style="width: 24vw;height: 10vh; margin-bottom: 6px;resize: none;" id="message"
+             class="form-control"
+             placeholder="Let's chat <%= username %>" ></textarea>
+           
+            <button id="send" class="addBtn" style="border: none;">Send</button>
+          </div>
+        </div>  
+    </div>
+    
+     <script>
+    
+    // var socket = io();
+    var socket =  io();
+
+    // ========= Start of document ready function =======
+    $(() => {
+      $("#send").click(() => {
+        var message = {
+          name: `<%= username %>`, 
+          message: $("#message").val()
+        };
+        postMessage(message);
+        $('#message').value = '';
+      });
+      getMessage();
+    });
+    // ========= End of document ready function =========
+    function addMessage(message) {
+    
+      $("#messages").append(
+        `<div class="chat"><p class="user-name"> ${message.name} </p> <p class="chat-message"> ${message.message} </p></div>`
+  // `<p class="user-name"> ${message.name} </p> <p class="chat-message"> ${message.message} </p>`
+      );
+    }
+    socket.emit("hello", {a : "10"});
+
+    socket.on("message", (message) =>{
+      addMessage(message);
+    });
+
+    console.log("to check");
+    
+
+    function getMessage() {
+       
+      $.get("http://localhost:8000/groups/group/chats", data => {
+        data.forEach(addMessage);
+      });
+    }
+
+    function postMessage(message) {
+      $.post("http://localhost:8000/groups/group/chats", message);
+    }
+  </script>
+  </body>
+</html>
