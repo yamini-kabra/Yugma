@@ -1,0 +1,9 @@
+
+    <% if(userlist.length > 0){ %>
+        <% for(let user of userlist){ %>
+          <% if(user != username){ %>
+          <div class="list" style="height:auto; background-color: rgb(107, 132, 201);"><%= user %></div>
+            <br>
+            <% } %>
+            <% } %>
+         <% } %>

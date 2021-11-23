@@ -160,14 +160,22 @@ exports.groupsLandingPage = (req,res,next) =>{
       eventlist = myevents;
       groups.findOne({ code: req.session.code }).then((group) => {
         req.session.groupName = group.name;
-        userGroups.find({group: group.name}).then((emailList)=>{
+  
+        userGroups.find({name: group.name}).then(async (emailList)=>{
             var userlist =[];
+            console.log("emaillist0");
             console.log(emailList);
-            emailList.forEach((email)=>{
-              user.findOne({email:email.email}).then((user)=>{
-                userlist.push(user.username);
-              });
-            });
+            for(var i = 0 ; i < emailList.length ; i++)
+            {
+              console.log("email" + i + "    " + emailList[i].email);
+              var result = await user.findOne({email:emailList[i].email});
+              console.log("result" + i + "    " + result.username);
+              userlist.push(result.username);
+              // user.findOne({email:emailList[i].email}, function(err,result) {
+              //   console.log("user" + i + "    " + result.username);
+              //   userlist.push(result.username);
+              // });  
+            }           
             console.log("userlist" + userlist);
               return res.render("insideGroup", {
                 username: req.session.user.username,
@@ -217,16 +225,27 @@ exports.groupsLandingPage = (req,res,next) =>{
       res.redirect("/groups");
     });
   };
-  exports.taskupdate = (req,res)=>{
-    const {_id}=req.params;
+
+  exports.taskchecked = (req,res,next)=>{
+    const id = req.params.id;
     
-    todo.updateOne({_id}, { checked:"1"})
+    todo.updateOne({id}, { checked:"1"})
     .then(()=>{
-        console.log("deleted")
+        console.log("checked")
         res.redirect('/groups')
     })
     .catch((err)=>console.log(err));
 };
+exports.taskunchecked = (req,res,next)=>{
+  const id = req.params.id;
+  todo.updateOne({id}, { checked:"0"})
+  .then(()=>{
+      console.log("unchecked")
+      res.redirect('/groups')
+  })
+  .catch((err)=>console.log(err));
+};
+
 
   exports.leaveGroup = (req, res, next) => {
     const email = req.session.user.email;

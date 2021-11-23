@@ -65,14 +65,11 @@
     
   </div>
   <div class="rightcolumn">
-    <div class="card">
+    <div class="card" style="overflow-y: scroll; height: 83vh;">
       <h2>People Here</h2>
-      <div class="list" style="height:auto; background-color: rgb(30, 219, 30);"><%= username %></div>
-
-
-      
+      <div class="list" style="height:auto; background-color: rgb(30, 219, 30);"><%= username %></div><br>
+      <%- include("./includes/userlist") %>   
     </div>
-
   </div>
 </div>
 
@@ -154,12 +151,6 @@
       document.getElementById("eventurl").value = " ";
     }
     
-    // When the user clicks anywhere outside of the modal, close it
-    // window.onclick = function(event) {
-    //   if (event.target == modal) {
-    //     modal.style.display = "none";
-    //   }
-    // }
     </script>
 
 

@@ -20,7 +20,8 @@ router.post("/joinGroup", groupController.postJoinGroup);
 router.get('/groups/group', forAuth, groupController.getGroup);
 router.post("/todo", groupController.posttodo);
 router.get("/todo/remove/:id", groupController.taskremove);
-router.get("/todo/update/:_id", groupController.taskupdate);
+router.get("/todo/checked/:id", groupController.taskchecked);
+router.get("/todo/unchecked/:id", groupController.taskunchecked);
 router.get('/groups/group/leave', forAuth, groupController.leaveGroup);
 module.exports = router;
 // <% if(clickOn === 'home'){ %>
