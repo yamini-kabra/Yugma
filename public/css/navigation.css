@@ -16,7 +16,14 @@ body {
   text-decoration: none;
   font-size: 17px;
 }
-
+.topnav .groupname {
+  float: left;
+  color: #575ec4;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 .topnav a:hover {
   background-color: #575ec4;
   color: rgb(174, 215, 228);
@@ -26,12 +33,12 @@ body {
   background-color: #1c27c0;
   color: #575ec4;
 }
-.vertical-menu {
+/* .vertical-menu {
   width: 200px;
-}
+} */
 
 .vertical-menu a {
-  background-color: #eee;
+  background-color: rgb(107, 132, 201);
   color: black;
   display: block;
   padding: 12px;

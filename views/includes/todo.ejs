@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/todo.css">
+
+</head>
+<body>
+    <div id="myDIV" class="header">
+        <h2>My To Do List</h2>
+        <form action="/todo" method="POST">
+        <input type="text" id="myInput1" name="task" placeholder="Title..." required>
+        <button type="submit" class="addBtn1">Add</button>
+      </form>
+      </div>
+      
+      <ul id="myUL">
+        <% if(tasklist.length > 0){ %>
+          <% for(let task of tasklist){ %>
+            <% if(task.checked === "0") {%>
+            <li ><%= task.task %><a style="text-decoration:none;" class="close" href="/todo/remove/<%= task._id %>">&times;</a></li>
+            <%}%>
+            <% if(task.checked === "1") {%>
+              <li class="checked"><%= task.task %><a style="text-decoration:none;" class="close" href="/todo/remove/<%= task._id %>">&times;</a></li>
+              <%}%>
+            <!-- <a class="close" href="/todo/remove/<% task._id %>">&times;</a> -->
+              <% } %>
+           <% } %>
+           
+      </ul>
+    
+</body>
+</html>

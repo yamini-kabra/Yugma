@@ -1,104 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script> -->
-  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
- 
-  <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title><%= groupName %></title>
-    <style>
-      /* Style the "Add" button */
-      .addBtn {
-        padding-top: 2px;
-        width: 25%;
-        height: 31px;
-        color: rgb(236, 233, 233);
-        float: left;
-        text-align: center;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s;
-        border-radius: 8px;
-        background: #1a73e8;
-        opacity: 0.9;
-        border: none
-      }
-
-      .addBtn:hover {
-        opacity: 10;
-      }
-
-      .chat{
-          border: 1px solid silver;
-          border-radius: 10px;
-          border-bottom: 2px solid gray;
-          margin-bottom: 2px;
-          background-color:rgba(255,255,255,0.5);
-      }
-      .user-name{
-          margin-left: 5%;
-          font-weight: bold;
-          color: black;
-      }
-      .chat-message{
-          margin-left: 5%;
-          font-size: 12px;
-          color: gray;
-      }
-    </style>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/linkify.min.js"></script>
+    <script src="/linkify-html.js"></script>
+    <script src="/linkify-jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/insideGroup.css">
 </head>
 <body>
-    <h1> welcome to <%= groupName %></h1>
-    <form action="/groups/group/leave" method="get">
-    <button style="margin-left: 12px" type="submit" class="addBtn">
-        Leave this group
-      </button>
-    </form>
-    
-    <div style="background-color:whitesmoke; height: 77vh; border-radius: 12px;">
-      <form action="/groups/group/leave" method="get">
-        <button style="margin-left: 12px; float: right; width: 12%;" type="submit" class="addBtn">
-            Leave this group
-          </button>
-        </form> 
-        <div class="chatbox">
-          <div class="chatlogs" style="padding: 8px;overflow-y: scroll">
-            <div class="chat" id="messages" style="background-image: url(https://res.cloudinary.com/practicaldev/image/fetch/s--WAKqnINn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/tw0nawnvo0zpgm5nx4fp.png);background-color:green;;min-height:55vh ; max-height: 55vh;overflow-y: scroll; padding: 8px;border-radius: 14px;;">
-              
-            </div>
-          </div>
-          <div class="chat-form" style="display: flex; flex-direction: column;padding-left: 8px;padding-right: 8px; align-items: center; margin-top:none;">
-          <textarea style="width: 24vw;height: 10vh; margin-bottom: 6px;resize: none;" id="message"
-             class="form-control"
-             placeholder="Let's chat <%= username %>" ></textarea>
-           
-            <button id="send" class="addBtn" style="border: none;">Send</button>
-          </div>
-        </div>  
+
+<div class="topnav">
+    <span class="groupname"><%= groupName %></span>
+    <a id="addEvent"> Add Event </a>
+    <a href="/groups/group/leave" style="float:right">Leave</a>
+    <a href="/groups" style="float:right">Home</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card" style="overflow-y: scroll; height: 83vh;">
+      <h2>EVENTS</h2>
+      <%- include("./includes/events") %>
     </div>
     
-     <script>
+  </div>
+  <div class="middlecolumn">
+    <div class="card">
+      <div style="background-color:whitesmoke; height: 77vh; border-radius: 12px;">
+          <div class="chatbox">
+            <div class="chatlogs" style="padding: 8px;overflow-y: scroll">
+              <div class="chat" id="messages" style="background-color:rgb(148, 228, 241);;min-height:55vh ; max-height: 55vh;overflow-y: scroll; padding: 8px;border-radius: 14px;;">
+                
+              </div>
+            </div>
+            <div class="chat-form" style="display: flex; flex-direction: column;padding-left: 8px;padding-right: 8px; align-items: center; margin-top:none;">
+            <textarea style="width: 24vw;height: 10vh; margin-bottom: 6px;resize: none;" id="message"
+               class="form-control"
+               placeholder="Let's chat <%= username %>" ></textarea>
+             
+              <button id="send" class="addBtn" style="border: none;">Send</button>
+            </div>
+          </div>  
+      </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form action="/groups/group/events" method="post">
+
+            <label id="eventname">Name of the event</label>
+            <input name="eventname" type="text" placeholder="Enter Event Name" class="input" required /><br><br><br>
+            <label id="eventdate">Date of the event</label>
+            <input name="eventdate" type="date" placeholder="Enter Event Date" class="input" required /><br><br><br>
+            <label id="eventurl1">Link of the event</label>
+            <input id="eventurl" value="" name="eventurl" type="url" placeholder="Enter Event Link" class="input" required /><br><br><br>
+          <button style="margin-left: 12px" type="submit" class="addBtn"> Add the event </button>
+            <br> 
+        </form>
+        </div>
+      
+      </div>
+    
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>People Here</h2>
+      <div class="list" style="height:auto; background-color: rgb(30, 219, 30);"><%= username %></div>
+
+
+      
+    </div>
+
+  </div>
+</div>
+
+<script>
     
     // var socket = io();
     var socket =  io();
 
     // ========= Start of document ready function =======
     $(() => {
+        document.getElementById("eventurl").value = " ";
       $("#send").click(() => {
         var message = {
           name: `<%= username %>`, 
           message: $("#message").val()
         };
         postMessage(message);
-        $('#message').value = '';
+        $('#message').val('');
       });
       getMessage();
     });
@@ -116,19 +108,63 @@
       addMessage(message);
     });
 
-    console.log("to check");
-    
+    // socket.on("gotlinks", (arr) =>{
+    //     console.log("arr is" + arr);
+
+    //     arr.forEach((a)=>{
+    //         document.getElementById("eventurl").value = a.value;
+    //         console.log(a.value);    
+    //         modal.style.display = "block";
+    //     });
+          
+    // });
 
     function getMessage() {
        
       $.get("http://localhost:8000/groups/group/chats", data => {
         data.forEach(addMessage);
+        
       });
     }
 
     function postMessage(message) {
+
       $.post("http://localhost:8000/groups/group/chats", message);
+      // console.log(message);
+      var arr = linkify.find(message.message);
+      if(arr.length > 0)
+      {
+        // console.log("message has " + arr.length + " links");
+        document.getElementById("eventurl").value = arr[0].value;
+        // console.log(arr[0].value);    
+        modal.style.display = "block";
+      }
     }
   </script>
-  </body>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("addEvent");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    span.onclick = function() {
+      modal.style.display = "none";
+      document.getElementById("eventurl").value = " ";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    //   }
+    // }
+    </script>
+
+
+
+</body>
 </html>
+
+

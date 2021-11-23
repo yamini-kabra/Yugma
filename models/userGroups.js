@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userGroupsSchema = new Schema({
+
   code: {
     type: String,
     required: true,

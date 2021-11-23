@@ -2,8 +2,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="/css/navigation.css">
 <link rel="stylesheet" href="/css/auth.css">
+<link rel="stylesheet" href="/css/insideGroup.css">
+
 </head>
 <body>
 
@@ -11,27 +14,47 @@
   <a class="active" href="/groups">Home</a>
   <a href="/createGroup">Create Group</a>
   <a href="/joinGroup">Join Group</a>
-  <a href="/logout">Logout</a>
-  <a href="/delete">Delete Account</a>
+  <a href="/logout" style="float:right">Logout</a>
+  <a href="/delete" style="float:right">Delete Account</a>
 </div>
+
+
 
 <% if(clickOn === 'home'){ %>
 
-<h1> welcome !</h1>
-<h1> <% groups %></h1>
-<% if(groups.length > 0){ %>
-  
-  <h1> hey, there are groups</h1>
-  <% for(let group of groups){ %>
-
-    <div class="vertical-menu">
-      <a href="groups/group/?code=<%=group.code %>"><%=group.name %></a>
-
+  <div class="row">
+    <div class="leftcolumn">
+      <div class="card" style="overflow-y: scroll; height: 77vh;">
+        <h2>GROUPS</h2>
+        <% if(groups.length > 0){ %>
+          <% for(let group of groups){ %>
+            <div class="vertical-menu">
+              <a href="groups/group/?code=<%=group.code %>"><%=group.name %></a>
+        
+            </div>
+              <% } %>
+           <% } %>
+      </div>
+      
     </div>
-    <% console.log(group.code) %>
-    <% } %>
-  <% } %>
-   <% } %>
+    <div class="middlecolumn" style="width: 45%;">
+      <div class="card" style="overflow-y: scroll; height: 77vh;">
+        <h2>EVENTS</h2>
+        <%- include("./includes/events") %>
+      </div>
+    </div>
+ 
+  
+   <div class="rightcolumn" style="width: 30%;">
+    <div class="card" style="overflow-y: scroll; height: 77vh;">
+      <%- include("./includes/todo") %>
+      
+     
+    </div>
+  </div>
+ <% } %>
+ </div>
+  </div>
 
 <% if(clickOn === 'createGroup'){ %>
   <div style="padding-left:16px">
@@ -88,6 +111,25 @@
               </form>
               </div>
         <% } %>
+
+        <script>
+          // Create a "close" button and append it to each list item
+          $(() => {
+          
+          // Add a "checked" symbol when clicking on a list item
+          var list = document.querySelector('ul');
+          list.addEventListener('click', function(ev) {
+            if (ev.target.tagName === 'LI') {
+              ev.target.classList.toggle('checked');
+            }
+          }, false);
+
+          });
+          
+          
+          
+          </script>
+          
 </body>
 </html>
 

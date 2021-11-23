@@ -9,7 +9,8 @@ const flash = require('connect-flash');
 const errorController = require('./controllers/404');
 const config = require('./config');
 const user = require('./models/user');
-
+const linkify = require('linkifyjs');
+const linkifyHtml = require('linkify-html');
 const app = express();
 const store = new MongoDBStore({
   uri: config.mongodbKey,
@@ -95,7 +96,7 @@ app.post("/groups/group/chats", async (req, res, next) => {
   console.log("in post chat functio");
 try {
   const name = req.session.user.username;
-  const msg = req.body.message;
+  const msg = linkifyHtml(req.body.message);
   const groupCode = req.session.code;
   var newChat = new chat({
     name: name,
@@ -114,6 +115,13 @@ try {
    
     io.emit("message", newChat);
   // }
+  // var arr = linkify.find(req.body.message);
+  // if(arr.length > 0)
+  // {
+  //   console.log("message has " + arr.length + " links");
+    
+  //   io.emit("gotlinks", arr);
+  // }
   res.sendStatus(200);
 }
  catch (error) {
@@ -127,7 +135,7 @@ finally {
 
 /////////////
 
-// app.use('/groups', insideGroupRoutes);
+app.use('/groups', insideGroupRoutes);
 app.use(errorController.get404page);
 
 mongoose.connect(config.mongodbKey).then(result => {

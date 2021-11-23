@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% if(eventlist.length > 0){ %>
+        <% let todaylist=[];  %>
+        <% let tomlist =[];   %>
+        <% let otherdaylist=[];  %>
+          
+        <% for(let event of eventlist){ %>
+          <%  var date1 = new Date();  %>
+          <%  var date2 = new Date(event.date.toISOString().split('T')[0]);  %>
+          <%  var days = Math.floor(Math.abs((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24)));   %>
+     
+          <% if(days == 0)  {%> 
+          <% todaylist.push(event);  %>
+          <% } %>
+          <% if(days == 1)  {%>
+          <% tomlist.push(event);  %>
+          <% } %>
+          <% if(days > 1) {%> 
+          <% otherdaylist.push(event);  %>
+          <% } %>
+        <% } %>
+     
+         
+          TODAY
+        <% if(todaylist.length > 0){ %>
+          <% for(let event of todaylist){ %>
+          
+              <div class="list" >
+                  <span style="float: left;"><a href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br> 
+                  <span style="float: left;"><%= event.date.toISOString().split('T')[0]%> </span>
+                 
+                  <br>
+              </div>
+              <br>
+              <% } %>
+           <% } %>
+           <% if(todaylist.length == 0){ %>
+            <div class="list" >
+              <span style="float: left;"> No event for today </span>
+      
+             
+              <br>
+          </div>
+          <br>
+  
+          <% } %>
+       
+           TOMORROW
+        <% if(tomlist.length > 0){ %>
+          <% for(let event of tomlist){ %>
+          
+              <div class="list" >
+                  <span style="float: left;"><a href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br> 
+                  <span style="float: left;"><%= event.date.toISOString().split('T')[0]%> </span>
+                 
+                  <br>
+              </div>
+              <br>
+              <% } %>
+           <% } %>
+           <% if(tomlist.length == 0){ %>
+            <div class="list" >
+              <span style="float: left;"> No event! </span>
+      
+             
+              <br>
+          </div>
+          <br>
+  
+          <% } %>
+           LATER
+           
+        <% if(otherdaylist.length > 0){ %>
+            <% otherdaylist.sort(function(x, y){ %>
+                <% return x.date - y.date; %>
+                <% }) %>
+          <% for(let event of otherdaylist){ %>
+          
+              <div class="list" >
+                  <span style="float: left;"><a href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br> 
+                  <span style="float: left;"><%= event.date.toISOString().split('T')[0]%> </span>
+                 
+                  <br>
+              </div>
+              <br>
+              <% } %>
+           <% } %>
+           
+          <% } %>
+</body>
+</html>

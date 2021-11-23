@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="Webpixels" />
+    <title>Learning Rooms</title>
+    <!-- Preloader -->
+    <style>
+      @keyframes hidePreloader {
+        0% {
+          width: 100%;
+          height: 100%;
+        }
+
+        100% {
+          width: 0;
+          height: 0;
+        }
+      }
+
+      body > div.preloader {
+        position: fixed;
+        background: white;
+        width: 100%;
+        height: 100%;
+        z-index: 1071;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        overflow: hidden;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      body:not(.loaded) > div.preloader {
+        opacity: 1;
+      }
+
+      body:not(.loaded) {
+        overflow: hidden;
+      }
+
+      body.loaded > div.preloader {
+        animation: hidePreloader 0.5s linear 0.5s forwards;
+      }
+    </style>
+    <script>
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          document.querySelector("body").classList.add("loaded");
+        }, 300);
+      });
+    </script>
+   
+    <link
+      rel="stylesheet"
+      href="/css/landing-page.css"
+      id="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Main content -->
+    <section class="slice py-7">
+      <div class="container">
+        <div class="row row-grid align-items-center">
+          <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
+            <!-- Image -->
+            <figure class="w-100">
+              <img style="height: 500px; width: 500px; "
+                alt="Image placeholder"
+                src="images/landing-page-vector.png"
+                class="img-fluid mw-md-120"
+              />
+            </figure>
+          </div>
+
+          <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
+            
+            <!-- Heading -->
+            <h1 class="display-4 text-center text-md-left mb-3">
+              It's time to simplify <br />
+              your
+              <strong class="text-primary" style="color: rgb(107, 132, 201) !important"
+                >online learning</strong
+              >
+            </h1>
+            <!-- Text -->
+            <p class="lead text-center text-md-left text-muted">
+              A free web service developed to streamline the process of sharing
+              files between teachers and students.
+            </p>
+            <!-- Buttons -->
+            <div class="text-center text-md-left mt-5">
+              <a
+                href="/signup"
+                class="btn btn-primary btn-icon"
+                
+              >
+                <span class="btn-inner--text">Get started</span>
+                <span class="btn-inner--icon"
+                  ><i data-feather="chevron-right"></i
+                ></span>
+              </a>
+              <a
+                href="/login"
+                class="btn btn-neutral btn-icon d-none d-lg-inline-block"
+          
+                >Login</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

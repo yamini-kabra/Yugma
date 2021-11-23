@@ -1,5 +1,8 @@
 const userGroups = require('../models/userGroups');
+const user = require('../models/user');
+const events = require("../models/events");
 const groups = require('../models/groups');
+const todo = require('../models/todo');
 
 exports.groupsLandingPage = (req,res,next) =>{
     let message = req.flash("error");
@@ -11,13 +14,20 @@ exports.groupsLandingPage = (req,res,next) =>{
     userGroups.find({ email: req.session.user.email })
       .then((groups) => {
         console.log(req.session.user.username);
-        console.log(message);
-        return res.render("groups", {
-            clickOn : 'home',
-          groups: groups,
-          username: req.session.user.username,
-          errorMessage: message,
+       
+        events.find().then((myevents)=>{
+          todo.find({ email: req.session.user.email }).then((tasks) =>{
+            return res.render("groups", {
+              clickOn : 'home',
+            groups: groups,
+            username: req.session.user.username,
+            errorMessage: message,
+              eventlist: myevents,
+              tasklist: tasks
+          });
+          }); 
         });
+        
       });
     
   };
@@ -71,7 +81,7 @@ exports.groupsLandingPage = (req,res,next) =>{
       });
       Group.save()
         .then((result) => {
-          console.log(result);
+          console.log("group is created");
         })
         .catch((err) => {
           console.log(err);
@@ -141,22 +151,36 @@ exports.groupsLandingPage = (req,res,next) =>{
     console.log("code of the channel" + code);
     req.session.code = code;
     // let firstquery = new Promise((resolve, reject) => {
-      userGroups.find({ code: req.session.code }).then((group) => {        
-        req.session.groupName = group[0].name;
-        console.log("hey");
-        return res.render("insideGroup", {
-          username: req.session.user.username,
-          groupName: req.session.groupName
-        });
-      });
+      
     // });
     console.log("groupNmae" + req.session.groupName);
    
-    // let mytask = [];
-    // eventDatabase.find({ code: req.session.code }).then((tasks) => {
-    //   req.session.code = code;
-    //   mytask = tasks;
-    // });
+    let eventlist = [];
+    events.find({ code: req.session.code }).then((myevents) => {
+      eventlist = myevents;
+      groups.findOne({ code: req.session.code }).then((group) => {
+        req.session.groupName = group.name;
+        userGroups.find({group: group.name}).then((emailList)=>{
+            var userlist =[];
+            console.log(emailList);
+            emailList.forEach((email)=>{
+              user.findOne({email:email.email}).then((user)=>{
+                userlist.push(user.username);
+              });
+            });
+            console.log("userlist" + userlist);
+              return res.render("insideGroup", {
+                username: req.session.user.username,
+                groupName: req.session.groupName,
+                eventlist: eventlist,
+                userlist: userlist,
+              });
+        });
+        
+      });
+    });
+    console.log(eventlist);
+    
   
     // ChannelNote.find({ code: code })
     //   .populate("noteId")
@@ -170,6 +194,40 @@ exports.groupsLandingPage = (req,res,next) =>{
     //     });
     //   });
   };
+  exports.posttodo = (req, res, next) => {
+    const ToDo = new todo({
+      email: req.session.user.email,
+      task: req.body.task,
+      checked: "0",
+    });
+    ToDo.save()
+      .then((result) => {
+        console.log("todo inserted");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("err generated");
+      });
+    return res.redirect("/groups");
+  };
+  exports.taskremove = (req, res, next) => {
+    const id = req.params.id;
+    todo.findByIdAndRemove(id, (err) => {
+      if (err) return res.send(500, err);
+      res.redirect("/groups");
+    });
+  };
+  exports.taskupdate = (req,res)=>{
+    const {_id}=req.params;
+    
+    todo.updateOne({_id}, { checked:"1"})
+    .then(()=>{
+        console.log("deleted")
+        res.redirect('/groups')
+    })
+    .catch((err)=>console.log(err));
+};
+
   exports.leaveGroup = (req, res, next) => {
     const email = req.session.user.email;
     userGroups.deleteOne(

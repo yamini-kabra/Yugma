@@ -5,6 +5,12 @@ const config = require('../config');
 const nodemailer = require("nodemailer");
 const flash = require("connect-flash");
 
+exports.getLandingPage = (req,res,next) =>{
+
+  res.render("./landing-page");
+
+};
+
 exports.getSignup = (req, res, next) => {
     let message = req.flash("error");
     if (message.length > 0) {
