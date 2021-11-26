@@ -4,19 +4,21 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-// const csrf = require('csurf');
 const flash = require('connect-flash');
 const errorController = require('./controllers/404');
 const config = require('./config');
 const user = require('./models/user');
-const linkify = require('linkifyjs');
+const groupRoutes = require('./routes/groups');
+const insideGroupRoutes = require('./routes/insideGroup');
+const authRoutes = require('./routes/auth');
+const { appendFile } = require('fs');
 const linkifyHtml = require('linkify-html');
 const app = express();
 const store = new MongoDBStore({
   uri: config.mongodbKey,
   collection: 'sessions'
 });
-// const csrfProtection = csrf();
+
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -26,8 +28,6 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
 });
-
-
 
 app.set('view engine' , 'ejs');
 app.set('views', 'views');
@@ -45,9 +45,6 @@ app.use(
   );
   // app.use(csrfProtection);
   app.use(flash());
-
-
-
 
 app.use((req, res, next) => {
     if (!req.session.user) {
@@ -67,12 +64,6 @@ app.use((req, res, next) => {
     next();
   });
 
-
-
-const groupRoutes = require('./routes/groups');
-const insideGroupRoutes = require('./routes/insideGroup');
-const authRoutes = require('./routes/auth');
-const { appendFile } = require('fs');
 
 app.use("/check",(req,res,next)=>{
 res.send("hey");
