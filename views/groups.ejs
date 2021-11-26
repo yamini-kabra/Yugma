@@ -11,7 +11,7 @@
 <body>
 
 <div class="topnav">
-  <a class="active" href="/groups">Home</a>
+  <a  href="/groups" >Home</a>
   <a href="/createGroup">Create Group</a>
   <a href="/joinGroup">Join Group</a>
   <a href="/logout" style="float:right">Logout</a>
@@ -24,12 +24,12 @@
 
   <div class="row">
     <div class="leftcolumn">
-      <div class="card" style="overflow-y: scroll; height: 77vh;">
+      <div class="card" style="overflow-y: scroll; height: 77vh;  ">
         <h2>GROUPS</h2>
         <% if(groups.length > 0){ %>
           <% for(let group of groups){ %>
-            <div class="vertical-menu">
-              <a href="groups/group/?code=<%=group.code %>"><%=group.name %></a>
+            <div class="vertical-menu" style="word-wrap:break-word;">
+              <a   href="groups/group/?code=<%=group.code %>"><%=group.name %></a>
         
             </div>
               <% } %>
@@ -67,7 +67,7 @@
           <div class="login" style="margin-top: 44px">
   
             <input name="code" type="number" placeholder="Enter Group Code here" class="input" required />
-           <input name="name" type="text" placeholder="Enter name of new channel" class= "input" required />
+           <input name="name" type="text" placeholder="Enter name of new group" class= "input" required />
             <br>
           </div>
           <div class="signin">

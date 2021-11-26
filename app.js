@@ -74,9 +74,10 @@ const insideGroupRoutes = require('./routes/insideGroup');
 const authRoutes = require('./routes/auth');
 const { appendFile } = require('fs');
 
+app.use("/check",(req,res,next)=>{
+res.send("hey");
+});
 
-app.use(groupRoutes);
-app.use(authRoutes);
 
 //chat portion
 
@@ -92,7 +93,7 @@ chat.find({ groupCode: req.session.code })
   .catch((err) => console.log(err));
 });
 
-app.post("/groups/group/chats", async (req, res, next) => {
+app.post("/groups/group/chats", (req, res, next) => {
   console.log("in post chat functio");
 try {
   const name = req.session.user.username;
@@ -136,6 +137,8 @@ finally {
 /////////////
 
 app.use('/groups', insideGroupRoutes);
+app.use(groupRoutes);
+app.use(authRoutes);
 app.use(errorController.get404page);
 
 mongoose.connect(config.mongodbKey).then(result => {
@@ -145,3 +148,4 @@ mongoose.connect(config.mongodbKey).then(result => {
     console.log(err);
 });
 
+module.exports = app;

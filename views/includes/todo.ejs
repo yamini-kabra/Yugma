@@ -21,10 +21,10 @@
           <% for(let task of tasklist){ %>
       
             <% if(task.checked === "0") {%>
-            <li class="notchecked" ><a style="text-decoration:none; color: black;" href="/todo/checked/<%= task._id %>"><%= task.task %></a><a style="text-decoration:none;" class="close" href="/todo/remove/<%= task._id %>">&times;</a></li>
+            <li class="notchecked" ><a style="text-decoration:none; word-wrap:break-word; color: black;" href="/todo/checked/<%= task._id %>"><%= task.task %></a><a style="text-decoration:none;" class="close" href="/todo/remove/<%= task._id %>">&times;</a></li>
             <%}%>
             <% if(task.checked === "1") {%>
-              <li class="checked"><a style="text-decoration:none; color: black;" href="/todo/unchecked/<%= task._id %>"><%= task.task %></a><a style="text-decoration:none;" class="close" href="/todo/remove/<%= task._id %>">&times;</a></li>
+              <li class="checked"><a style="text-decoration:none;word-wrap:break-word; color: black;" href="/todo/unchecked/<%= task._id %>"><%= task.task %></a><a style="text-decoration:none;" class="close" href="/todo/remove/<%= task._id %>">&times;</a></li>
               <%}%>
             <!-- <a class="close" href="/todo/remove/<% task._id %>">&times;</a> -->
               <% } %>

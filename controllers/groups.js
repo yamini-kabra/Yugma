@@ -11,24 +11,50 @@ exports.groupsLandingPage = (req,res,next) =>{
     } else {
       message = null;
     }
-    userGroups.find({ email: req.session.user.email })
-      .then((groups) => {
-        console.log(req.session.user.username);
-       
-        events.find().then((myevents)=>{
-          todo.find({ email: req.session.user.email }).then((tasks) =>{
-            return res.render("groups", {
-              clickOn : 'home',
-            groups: groups,
-            username: req.session.user.username,
-            errorMessage: message,
-              eventlist: myevents,
-              tasklist: tasks
-          });
-          }); 
-        });
-        
+
+    userGroups.find({ email: req.session.user.email }).then(async (groups) => {
+      // console.log(groups);
+      var eventlist =[];
+      for(var i = 0 ; i < groups.length ; i++)
+      {
+        var result = await events.find({ code: groups[i].code });
+        eventlist.push(result);
+        // console.log("result");  
+      }
+      var flatArray = Array.prototype.concat.apply([], eventlist); //flatten array of arrays
+      // console.log(flatArray);
+      todo.find({ email: req.session.user.email }).then((tasks) =>{
+        return res.render("groups", {
+          clickOn : 'home',
+        groups: groups,
+        username: req.session.user.username,
+        errorMessage: message,
+          eventlist: flatArray,
+          tasklist: tasks
       });
+      }); 
+      // console.log(eventlist);
+  
+  });
+
+    // userGroups.find({ email: req.session.user.email })
+    //   .then((groups) => {
+    //     console.log(req.session.user.username);
+       
+    //     events.find().then((myevents)=>{
+    //       todo.find({ email: req.session.user.email }).then((tasks) =>{
+    //         return res.render("groups", {
+    //           clickOn : 'home',
+    //         groups: groups,
+    //         username: req.session.user.username,
+    //         errorMessage: message,
+    //           eventlist: myevents,
+    //           tasklist: tasks
+    //       });
+    //       }); 
+    //     });
+        
+    //   });
     
   };
   exports.getCreateGroup = (req,res,next) =>{
@@ -40,7 +66,7 @@ exports.groupsLandingPage = (req,res,next) =>{
     }
     userGroups.find({ email: req.session.user.email })
       .then((groups) => {
-        console.log("current session username is " + req.session.user.username);
+        console.log("In create group, current session username is " + req.session.user.username);
         return res.render("groups", {
             clickOn : 'createGroup',
           groups: groups,
@@ -59,7 +85,7 @@ exports.groupsLandingPage = (req,res,next) =>{
     }
     userGroups.find({ email: req.session.user.email })
       .then((groups) => {
-        console.log("current session username is " + req.session.user.username);
+        console.log("In join group, current session username is " + req.session.user.username);
         return res.render("groups", {
             clickOn : 'joinGroup',
           groups: groups,
@@ -100,6 +126,7 @@ exports.groupsLandingPage = (req,res,next) =>{
         });
     } else {
       req.flash("error", "Code already exists");
+      // alert("Code already exists");
     return res.redirect("/createGroup");
     }
     return res.redirect("/groups");
@@ -163,7 +190,7 @@ exports.groupsLandingPage = (req,res,next) =>{
   
         userGroups.find({name: group.name}).then(async (emailList)=>{
             var userlist =[];
-            console.log("emaillist0");
+            console.log("emaillist");
             console.log(emailList);
             for(var i = 0 ; i < emailList.length ; i++)
             {

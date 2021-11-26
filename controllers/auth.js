@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const config = require('../config');
 const nodemailer = require("nodemailer");
 const flash = require("connect-flash");
-
+const userGroups = require('../models/userGroups');
 exports.getLandingPage = (req,res,next) =>{
 
   res.render("./landing-page");
@@ -22,6 +22,7 @@ exports.getSignup = (req, res, next) => {
     res.render("./auth/signup", {
       errorMessage: message,
     });
+    
 };
 
 exports.getLogin = (req, res, next) => {
@@ -32,19 +33,22 @@ exports.getLogin = (req, res, next) => {
       message = null;
     }
     // let message = false;
-    res.render("./auth/login", {
+    console.log("in get login controller");
+    res.status(200).render("./auth/login", {
       errorMessage: message,
     });
+    // res.status = 200;
   };
 
 exports.postLogin = (req,res,next)=>{
     const email = req.body.email;
     const password = req.body.password;
+    console.log("in post login controller")
     user.findOne({ email: email })
     .then((user) => {
       if (!user) {
         req.flash("error", "You don't have an account, create one!");
-        return res.redirect("/login");
+        return res.status(401).redirect("/login");
       }
       bcrypt
         .compare(password, user.password)
@@ -57,17 +61,17 @@ exports.postLogin = (req,res,next)=>{
             
               if (err) {
                 req.flash("error", "Invalid email or password.");
-                return res.redirect("/login");
+                return res.status(401).redirect("/login");
               }
-              res.redirect("/groups");
+              res.status(200).redirect("/groups");
             });
           }
           req.flash("error", "Invalid email or password.");
-          res.redirect("/login");
+          res.status(401).redirect("/login");
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/login");
+          res.status(401).redirect("/login");
         });
     })
     .catch((err) => console.log(err));
@@ -110,6 +114,9 @@ exports.postSignup = (req,res,next)=>{
   exports.deleteAccount = (req, res, next) => {
     const email = req.session.user.email;
     user.deleteOne({ email: email }, function (err, obj) {
+      if (err) throw err;
+    });
+    userGroups.deleteMany({ email: email }, function (err, obj) {
       if (err) throw err;
     });
     res.redirect("/login");

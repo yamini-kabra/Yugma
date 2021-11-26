@@ -7,13 +7,16 @@
     />
     <link rel="stylesheet" href="/css/auth.css">
   </head>
-  <body>
+  <body style="background-color: #EBF4FA;">
     <div class="box container">
       <!-- <img src="applogo.png" /> -->
       <form action="/login" method="POST">
-     
-        <h2>Log In Yourself</h2>
+        
+        <!-- <img src="images/yugma.png" style="height: 100px; width: 300px; vertical-align: middle; margin-left: 70px; " /> -->
+
+        <h2> Login</h2>
         <div class="login" style="margin-top: 44px">
+          
           <!-- <label id="email">Email</label> -->
           <input name="email" type="email" placeholder="Email" class="input" required />
           <!-- <label id="password">Password</label> -->
@@ -26,7 +29,8 @@
           
         </div>
         <br><br>
-          <a style="margin-left: 0px" href="/signup">Create account</a>
+          <a style="margin-left: 0px" href="/signup">Create account</a><br><br>
+          <a style="margin-left: 0px" href="/">Home</a>
         <% if (errorMessage) { %>
         <center>
           <div style="height: 30px; color: red"><%= errorMessage %></div>
@@ -38,5 +42,6 @@
         <a style="margin-left: 6px" href="/reset">Forgot Password?</a>
       </div> -->
     </div>
+    
   </body>
 </html>

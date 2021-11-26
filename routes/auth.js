@@ -6,7 +6,7 @@ const user = require('../models/user');
 const { check, body } = require("express-validator");
 
 router.get('/login', authController.getLogin);
-router.get('/landing-page', authController.getLandingPage);
+
 router.get('/signup', authController.getSignup);
 
 router.post('/login', authController.postLogin);
@@ -40,6 +40,7 @@ router.post('/signup',[
 
 router.get("/logout",authController.getLogout);
 router.get("/delete",authController.deleteAccount);
+router.get('/', authController.getLandingPage);
 module.exports = router;
 
 
