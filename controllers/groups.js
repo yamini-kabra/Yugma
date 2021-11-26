@@ -255,9 +255,10 @@ exports.groupsLandingPage = (req,res,next) =>{
 
   exports.taskchecked = (req,res,next)=>{
     const id = req.params.id;
-    
-    todo.updateOne({id}, { checked:"1"})
-    .then(()=>{
+    console.log("task id" + id);
+    todo.updateOne({"_id":id}, { checked:"1"})
+    .then((ToDo)=>{
+      console.log(ToDo);
         console.log("checked")
         res.redirect('/groups')
     })
@@ -265,7 +266,7 @@ exports.groupsLandingPage = (req,res,next) =>{
 };
 exports.taskunchecked = (req,res,next)=>{
   const id = req.params.id;
-  todo.updateOne({id}, { checked:"0"})
+  todo.updateOne({"_id":id}, { checked:"0"})
   .then(()=>{
       console.log("unchecked")
       res.redirect('/groups')
