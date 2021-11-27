@@ -11,7 +11,7 @@ const user = require('./models/user');
 const groupRoutes = require('./routes/groups');
 const insideGroupRoutes = require('./routes/insideGroup');
 const authRoutes = require('./routes/auth');
-const { appendFile } = require('fs');
+const chat = require("./models/chat");
 const linkifyHtml = require('linkify-html');
 const app = express();
 const store = new MongoDBStore({
@@ -24,6 +24,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+//to establish the socket connection
 io.on('connection', (socket) => {
   console.log('a user connected');
 
@@ -64,17 +65,7 @@ app.use((req, res, next) => {
     next();
   });
 
-
-app.use("/check",(req,res,next)=>{
-res.send("hey");
-});
-
-
 //chat portion
-
-
-const chat = require("./models/chat");
-
 app.get("/groups/group/chats", (req, res, next) => {
   console.log("in receive chat functio");
 chat.find({ groupCode: req.session.code })
@@ -125,13 +116,13 @@ finally {
 }
 });
 
-/////////////
 
 app.use('/groups', insideGroupRoutes);
 app.use(groupRoutes);
 app.use(authRoutes);
 app.use(errorController.get404page);
 
+//to establish the connection with mongodb
 mongoose.connect(config.mongodbKey).then(result => {
     console.log("db connected");
     server.listen(config.port);

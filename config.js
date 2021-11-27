@@ -4,5 +4,5 @@ dotenv.config();
 module.exports = {
     mongodbKey : process.env.MONGODB_KEY,
     port: process.env.PORT,
-    password: process.env.PASSWORD
+    // password: process.env.PASSWORD
 };

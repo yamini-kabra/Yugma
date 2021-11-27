@@ -14,11 +14,11 @@
           
         <% for(let event of eventlist){ %>
           <%  var date1 = new Date();  %>
-          <%  var date2 = new Date(event.date.toISOString().split('T')[0]);  %>
+          <%  var date2 = new Date(event.date.toLocaleDateString());  %>
+          
           <%  var days = Math.ceil((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));   %>
-     
-          <% if(days == 0 || days == -1)  {%> 
-
+        
+          <% if(days == 0)  {%> 
           <% todaylist.push(event);  %>
           <% } %>
           <% if(days == 1)  {%>
@@ -35,7 +35,7 @@
           <% for(let event of todaylist){ %>
           
               <div class="list" >
-                  <span style="float: left;"><a href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br>
+                  <span style="float: left;"><a target="_blank" href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br>
                   <span style="float: left;  padding-top: 4px;"><%= event.date.toISOString().split('T')[0]%> </span>
                  
                   <br>
@@ -59,7 +59,7 @@
           <% for(let event of tomlist){ %>
           
               <div class="list" >
-                  <span style="float: left;"><a href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br> 
+                  <span style="float: left;"><a target="_blank" href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br> 
                   <span style="float: left;  padding-top: 4px;"><%= event.date.toISOString().split('T')[0]%> </span>
                  
                   <br>
@@ -86,7 +86,7 @@
           <% for(let event of otherdaylist){ %>
           
               <div class="list" >
-                  <span style="float: left;"><a href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br>
+                  <span style="float: left;"><a target="_blank" href="<%= event.url %>"><%= event.name %></a></span> <span style="float: right;"><%= event.username %></span><br>
                   <span style="float: left; padding-top: 4px;"><%= event.date.toISOString().split('T')[0]%> </span>
                  
                   <br>

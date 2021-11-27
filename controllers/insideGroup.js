@@ -9,6 +9,7 @@ exports.getEvents = (req,res,next) =>{
 };
 
 exports.postEvents = (req,res,next) =>{
+  console.log(req.body.eventdate);
   const Event = new events({
     code: req.session.code,
     name: req.body.eventname,
