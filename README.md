@@ -1,11 +1,11 @@
 <p align="center">
-		<img src="./public/images/Yugma.png" width=200px style="margin-left: 70px;" />
-		<h2 align="center"> YUGMA </h2>
+		<img src="https://github.com/yamini-kabra/Yugma/blob/main/public/images/yugma1.png?raw=true" width=150px style="margin-left: 2250px;" />
+<!-- 		<h2 align="center"> YUGMA </h2> -->
 		<h4 align="center"> Information is better when shared! <h4>
 		</p>
-<hr />
+
 A free platform developed to promote collaborative learning while ensuring that you never miss out on any happening.
-<hr />
+
 
 ## Features 
 - [X]  A unique identification system for each user is provided by signup/login functionality through email.
@@ -14,7 +14,7 @@ A free platform developed to promote collaborative learning while ensuring that 
 - [X]  Inbuilt events maintaining system for better visibility and tracking of the current and future happenings.
 - [X]  Personalized To-Do List	
 
-<hr />
+
 <!-- ## Deployment 
 1. Client side - Vercel  --> 
 
@@ -22,8 +22,8 @@ A free platform developed to promote collaborative learning while ensuring that 
 
 ### Overview of the system: 
 Figma Link - https://www.figma.com/file/tMcsk942z02LaQYVVkXrPH/flowchart-yugma?node-id=0%3A1 
-<hr />
-### Tech Stack:
+
+### Tech Stack :
 
 Frontend
 1. HTML
@@ -35,14 +35,13 @@ Backend
 1. NodeJS + Express
 2. MongoDB 
 
-<hr />
-### Prerequisite
+
+### Prerequisite:
 
 1. [NodeJs](https://nodejs.org/en/download/)
 
-<hr/>
 
-### How to run: 
+### How to run:
 
 1. Clone the repository:
 `git clone https://github.com/yamini-kabra/Yugma.git`
