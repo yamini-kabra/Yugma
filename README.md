@@ -11,21 +11,35 @@ A free platform developed to promote collaborative learning while ensuring that 
 
 
 <!-- ## Deployment 
-1. Client side - Vercel  --> -->
+1. Client side - Vercel  --> 
 
 <!-- ## Client Side -->
 
-### Flowchart: 
+### Overview of the system: 
 Figma Link - https://www.figma.com/file/tMcsk942z02LaQYVVkXrPH/flowchart-yugma?node-id=0%3A1 
 
 ### Tech Stack:
+
+Frontend
+1. HTML
+2. CSS
+3. JavaScript
+4. Template Engine- EJS 
+
+Backend
 1. NodeJS + Express
 2. MongoDB 
-3. Template Engine- EJS 
 
-## How to run: 
 
-1. With npm: 
+### How to run: 
+
+1. Clone the repository:
+`git clone https://github.com/yamini-kabra/Yugma.git`
+
+2. Move into directory:
+`cd Yugma`
+
+3. With npm: 
 ```bash
 $ npm install 
 $ npm start
