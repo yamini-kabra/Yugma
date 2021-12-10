@@ -54,32 +54,11 @@ Backend
 $ npm install 
 $ npm start
 ```
+			
+4. Check on http://localhost:8000 !!
 
 
 
 
 
 
-<!-- ## Server side -->
-
-<!-- ### ER diagram link: -->
-<!-- drawSQL - https://drawsql.app/student-141/diagrams/classroom-schedule -->
-
-
-<!-- ### Tech Stack: 
-1. MySQL 
-2. NodeJS + Express
-3. Typescript
-
-### How to run: 
-1. With yarn: 
-```bash
-$ cd server
-$ yarn && yarn start
-```
-
-2. With npm: 
-```bash
-$ cd server
-$ npm install && npm run start
-``` -->
