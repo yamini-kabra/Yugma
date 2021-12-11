@@ -125,7 +125,7 @@ app.use(errorController.get404page);
 //to establish the connection with mongodb
 mongoose.connect(config.mongodbKey).then(result => {
     console.log("db connected");
-    server.listen(config.port);
+    server.listen(process.env.PORT || config.port);
 }).catch(err => {
     console.log(err);
 });
