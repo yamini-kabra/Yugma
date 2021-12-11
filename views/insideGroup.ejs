@@ -118,15 +118,17 @@
 
     function getMessage() {
        
-      $.get("http://localhost:8000/groups/group/chats", data => {
-        data.forEach(addMessage);
+      // $.get("http://localhost:8000/groups/group/chats", data => {
+      //   data.forEach(addMessage);
+      // $.get("http://localhost:8000/groups/group/chats", data => {
+      //   data.forEach(addMessage);
         
-      });
+      // });
     }
 
     function postMessage(message) {
 
-      $.post("http://localhost:8000/groups/group/chats", message);
+      // $.post("http://localhost:8000/groups/group/chats", message);
       // console.log(message);
       var arr = linkify.find(message.message);
       if(arr.length > 0)
