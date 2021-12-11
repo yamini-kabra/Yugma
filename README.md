@@ -49,13 +49,18 @@ Backend
 2. Move into directory:
 `cd Yugma`
 
-3. With npm: 
+3. Create a new .env file and include the following key-value pairs
+```bash
+PORT = 8000
+MONGODB_KEY = '<a connection link to a cluster>'
+```			
+4. With npm: 
 ```bash
 $ npm install 
 $ npm start
 ```
 			
-4. Check on http://localhost:8000 !!
+5. Check on http://localhost:8000 !!
 
 
 
